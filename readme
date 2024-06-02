@@ -1,0 +1,56 @@
+create new project:
+    cargo new --bin project_name
+
+explanation for the dependencies using the makefile we are installing the dependencies:
+    
+    cargo install cargo-edit
+        This command attempts to install the cargo-edit tool, which allows managing Cargo dependencies directly from the command line by modifying your Cargo.toml file.
+    
+    cargo add actix-web
+        actix-web is a popular web framework in Rust known for its exceptional performance and support for features like HTTP/1.x and HTTP/2.0. It's a great choice for building high-performance APIs.
+	
+    cargo add actix-cors
+        actix-cors provides functionality for handling Cross-Origin Resource Sharing (CORS) in your Actix-web API. This is essential for allowing requests from different domains to interact with your API
+	
+    cargo add serde_json
+        serde_json is a serialization and deserialization library that allows you to easily convert Rust data structures to and from JSON format. This is crucial for sending and receiving data in a web API that uses JSON as its data format
+	
+    cargo add async-trait 
+        this will not be required if the rust vversion is higher than 1.75 before 1.75.0 version we cannot directly use async traits in method so we have to use async-trait crate of rust to define a method is async method or not but after 1.75.0 version we can use that directly
+	
+    cargo add serde -F derive
+        serde allows you to easily convert your Rust structs and other data types to and from different formats like JSON, XML, etc. The -F derive flag enables automatic generation of serialization/deserialization code for your structs, simplifying the process.
+	
+    cargo add chrono -F serde
+        chrono provides libraries for working with dates, times, time zones, and durations. The -F serde flag ensures compatibility with serde for serialization and deserialization of chrono types to and from JSON format.
+	
+    cargo add futures-util
+        futures-util offers building blocks for asynchronous operations, error handling, and composition in Rust. It's often used in conjunction with libraries like async-std or the Tokio runtime for asynchronous programming
+	
+    cargo add env_logger
+        env_logger allows you to define different logging levels (debug, info, error, etc.) based on environment variables. This is helpful for controlling the amount of logging information output in different environments (development, testing, production)
+	
+    cargo add dotenv
+        dotenv helps you keep sensitive configuration details (API keys, database credentials) separate from your source code. You can store them in 
+        a .env file that is not included in version control.
+	
+    cargo add uuid -F "serde v4"
+        uuid provides functionality for creating unique identifiers that can be used for various purposes in your application. The -F "serde v4" flag ensures compatibility with the version of serde you're using.
+	
+    cargo add sqlx -F "tls-native-tls runtime-async-std postgres chrono uuid"
+        sqlx is an asynchronous database access library for Rust. The specified features provide:
+            tls-native-tls: Support for secure connections using native TLS.
+            runtime-async-std: Compatibility with the async-std runtime for asynchronous programming.
+            postgres: Enables interaction with PostgreSQL databases.
+            chrono: Allows serialization/deserialization of chrono types with sqlx.
+            uuid: Might be included for handling UUIDs when working with the database.
+	
+    cargo add jsonwebtoken
+        jsonwebtoken provides tools for encoding, decoding, and validating JWTs. JWTs are a popular mechanism for securely transmitting information between different parts of an application or between applications.
+	
+    cargo add argon2
+        argon2 implements the Argon2 password hashing function, which is considered to be one of the most secure and resistant to brute-force attacks. It's a good choice for storing passwords in a database securely.
+	
+    cargo add validator -F derive 
+        validator provides tools for validating different types of data against certain rules. The -F derive flag allows automatic generation of validation code for your structs, simplifying data validation tasks.
+
