@@ -2,6 +2,8 @@ create new project:
     cargo new --bin project_name
 
 explanation for the dependencies using the makefile we are installing the dependencies:
+
+    we will run this commands in the terminal to add neccessary dependency in Cargo.toml and then execute cargo build to download and install them
     
     cargo install cargo-edit
         This command attempts to install the cargo-edit tool, which allows managing Cargo dependencies directly from the command line by modifying your Cargo.toml file.
@@ -53,4 +55,90 @@ explanation for the dependencies using the makefile we are installing the depend
 	
     cargo add validator -F derive 
         validator provides tools for validating different types of data against certain rules. The -F derive flag allows automatic generation of validation code for your structs, simplifying data validation tasks.
+
+Installing Docker:
+
+    sudo pacman -Syu to update the system
+    sudo pacman -S docker to install the docker
+    sudo docker version to check version
+    sudo systemctl start docker.service to start the docker service
+    sudo systemctl enable docker.service to enable the service at startup
+    sudo docker info to view information about the application
+    sudo docker search [name] to search for the docker image required
+    sudo docker pull [image_name] to get the required docker image
+    sudo docker run [image_name] to run the image
+    sudo docker container ls to monitor and list the running containers
+    sudo docker images to list the installed docker images in the system
+    sudo docker stats to see the cpu , network and ram usage
+
+What is Docker Compose Configuration file?
+    Docker Compose is a tool that simplifies the process of running multi-container Docker applications.
+    It uses a configuration file, typically named docker-compose.yml (or .yaml), to define the services, networks, volumes, and other elements that make up your application. 
+    This configuration file essentially acts as a blueprint for how Docker Compose should set up and manage your containers.
+
+    Key Components of docker compose configuration file:
+        Services: 
+            These represent the individual containers that make up your application. 
+            Each service section within the configuration defines settings like:
+
+                The image to use for the container (e.g., a specific Docker image from a registry).
+                Ports to map between the container and the host machine.
+                Environment variables to set within the container.
+                Volumes to mount (directories or files that persist data between container runs).
+                Dependencies on other services (linking containers together).
+
+        Networks: 
+            You can define custom networks for your containers to communicate with each other securely and efficiently. 
+            These virtual networks are isolated from the host machine's network.
+
+        Volumes: 
+            Volumes allow you to persist data outside of the container itself. 
+            This ensures data isn't lost when containers are recreated.
+            You can define volumes to map directories or files on the host machine to locations within the container.
+
+        Configs: 
+            This section (optional) lets you manage configuration files used by your services. 
+            You can define configs that are shared across multiple containers.
+
+        Secrets:
+            You can store sensitive information like passwords or API keys as secrets within Docker Compose. 
+            This keeps them out of your source code and configuration files.
+
+    Explaination of the docker file:
+        Version : Specifies the docker version
+        Service : List the multiple services that will be running using the compose file
+        Image : Contains the name of the docker image that we will run as a service
+        Environment : Contains the Environment variable like username, password, db_name,email,port etc
+        Ports : Will have the port numbers mapped from host to docker image to connect ex: 6500:5432
+        Volumes : States the location of the persistent that maps directory in the image
+        Health-Check : This checks the health of the image here db to make sure that is working
+        Networks : This connects the services in the docker to communicate with each other using container name or hostname
+
+    Starting the postgres and pgadmin containers:
+        
+        docker-compose -f docker-compose.no_api.yml up -d
+
+        breakdown of the command:
+
+            docker-compose: This is the executable for the Docker Compose tool.
+            -f docker-compose.no_api.yml: This option specifies the configuration file that Docker Compose should use
+            up : This is a subcommand of Docker Compose that tells it to start and run the services defined in the configuration file.
+            -d: This flag stands for "detached." When you use it with docker-compose up, the services will be started in the background, and the terminal will prompt you back to the command line without showing logs for the running containers. 
+        
+        Important docker commands:
+            docker pull <image_name>:<tag> 
+            <image_name> with the name of the image (e.g., ubuntu) and <tag> with the specific version tag (e.g., latest, 20.04)
+
+            docker build -t <image_name>:<tag> "to build the image"
+
+            docker run -d <image_name>:<tag> "to run the builded image"
+
+            docker ps "to view running containers"
+
+            docker stop <container_id> "to stop a running container"
+
+            docker start <container_id> "to start a stopped container"
+
+            docker rm <container_id> "to remove a unwanted container"
+
 
