@@ -141,4 +141,38 @@ What is Docker Compose Configuration file?
 
             docker rm <container_id> "to remove a unwanted container"
 
+Data Migrations with SQLx-CLI:
+    So here for the clarrification SQLx is popular asynchronous pure rust library for interacting with relational database
 
+    SQLx-CLI is the command-line-utility associated rust SQLx library
+
+    First we need to create a database model and then we can use that model to define the schema for that model
+    Note:
+        Basic difference between the modle and the schema is 
+        1. model provides an abstract view of the entities, attributes, and relationships between entities in a database
+        2. schema defines how a database structure can be implemented in a specific database management system (DBMS.)
+    
+    To define how the database model can be implemented using database schema we will be creating a migration file to apply this on postgres database
+
+    cargo install sqlx-cli --no-default-features --features postgres (install sqlx-cli with no default features but with postgres features)
+
+    Once the sqlx cli is installed we can initialize the migrate file using "sqlz migrate add -r init"
+        explanation of command:
+            sqlx migrate: This is the main command for working with migrations in sqlx.
+            add: This subcommand tells sqlx migrate to create a new migration file.
+            -r init: This option specifies the name for the new migration file. In this case, it will be named init.sq
+    
+    this will create two files one is up.sql file and another is down.sql file
+        1. The “up” migration file will carry the necessary SQL code for inserting the user_role enum and the users table into the database
+        2. the “down” script that allows us to reverse the changes applied by the “up” migration script
+    
+    Once the migrate file is done we can run "sqlx migrate run" this will make the migrate to done at database
+    Note:
+        make sure that the docker container is running if not then run the container "docker-compose -f docker_compose.yml up"
+        check that the container is running using "docker ps" command
+
+    To access the database and view its schema search the specified url of pgadmin defined in docker file
+     "http://localhost:5050" and use the login credentials from docker as specified to login
+    
+    Once logged in create new server with name and password
+    then using the server we can view the schema Database -> rustapp -> schemas user -> right-click and select properties
